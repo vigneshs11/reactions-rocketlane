@@ -1,34 +1,40 @@
 import Reactions from "./Reactions";
-import Api from '../helpers/api'
-import React, { useContext } from 'react';
+import Api   from '../helpers/api'
+import React from 'react';
 
-import  reactionsContextProvider from '../context/reactionsContextProvider'
 
+const ReactionContext = React.createContext('default');
 
 class Mount extends React.Component {
 
-    static contextType = useContext(reactionsContextProvider)
     constructor(props) {
         super(props)
-        const api = new Api();
+        this.state = {
+            reactions: []
+        }
+        this.api = new Api();
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getReactions();
     }
 
     getReactions() {
-        debugger
         this.api.getReactionsList().then(results => {
-     let { reactions, setReactions } = this.context;
-        setReactions([...reactions,...results]);
+            this.setState({
+                reactions: [...results.data]
+            })
         })
     }
 
 
   render() {
       return(
-          <Reactions />
+          <ReactionContext.Provider value={this.state.reactions}>
+          <div className="mount">
+          <Reactions  reactions={this.state.reactions}/>
+          </div>
+          </ReactionContext.Provider>
       );
   }
 };

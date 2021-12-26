@@ -5,7 +5,9 @@ import { Trigger } from './Trigger';
 
 class Reactions extends React.Component {
 
-
+  constructor(props) {
+      super(props)
+  }
 
     render() {
         return (
