@@ -32,7 +32,7 @@ class Mount extends React.Component {
       return(
           <ReactionContext.Provider value={this.state.reactions}>
           <div className="mount">
-          <Reactions  reactions={this.state.reactions}/>
+          <Reactions  value={this.state.reactions}/>
           </div>
           </ReactionContext.Provider>
       );
