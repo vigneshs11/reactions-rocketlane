@@ -1,28 +1,39 @@
 import React, { useContext } from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
 import addReactions from '../assets/addReaction.png'
 import { Tray  } from './Tray';
+import useComponentVisible  from '../helper/useComponentVisible';
 
 
 
 
+export const Trigger = ({reactions, handleClick}) => {
+  const { ref, isComponentVisible } = useComponentVisible(false);
 
-export const Trigger = ({hoverIn, hoverOut}) => {
-  const [showTray, setShowTray] = useState(false);
 
+if(isComponentVisible) {
     return( 
-        <React.Fragment>
-            <Tray showTray={showTray}/>
-     <div 
-    onMouseEnter={() => {setShowTray(true); }}
-    onMouseLeave={() => { setShowTray(false); }}    
-    className='trigger'>
-    <img src={addReactions}></img>
-    </div>
-        </React.Fragment>
+        
+        <div ref={ref}>
+            <Tray ref={ref} showTray={isComponentVisible} reactions={reactions} handleClick={handleClick}/>
+            <div  
+            className='trigger'>
+            <img src={addReactions}></img>
+            </div>
+        </div>
        
-    );
+    );        
+} else {
+    return(  
+        <div ref={ref}>
+            <div  
+            className='trigger'>
+            <img src={addReactions}></img>
+            </div>
+        </div>  
+        
+        )
+}
+    
 
      
 }

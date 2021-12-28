@@ -1,14 +1,15 @@
 import React, {useContext} from 'react';
 
 
+export const Tray = ({showTray, reactions, handleClick}) => {
 
-export const Tray = ({showTray}) => {
-
-    //const ReactionContext = useContext(ReactionContext)
+    let reactionList = reactions.filter(reaction => !reaction.selected).map(reaction =>(<div className="emoji"> {reaction.emoji}</div>));
 
     return (
-        <ReactionContext.Consumer>
-    <div className={showTray ? 'showTray' : 'hideTray'}>value</div>
-        </ReactionContext.Consumer>
+    <div  
+    onClick={handleClick}
+    className={showTray ? 'showTray' : 'hideTray'}
+    >{reactionList}
+    </div>
     );
 }

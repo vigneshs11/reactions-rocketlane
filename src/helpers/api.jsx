@@ -2,6 +2,7 @@
 import * as axios from "axios";
 
 const BASE_URL = 'https://artful-iudex.herokuapp.com'
+const CONTENT_ID = '2'
 
 export default class Api {
   constructor() {
@@ -31,7 +32,15 @@ export default class Api {
     return this.init().get(`/reactions`);
   };
 
-//   addNewUser = (data) => {
-//     return this.init().post("/users", data);
-//   };
+  postReaction = (params) => {
+    return this.init().post(`/user_content_reactions`, params)
+  }
+
+  getUserContentReaction = () => {
+    return this.init().get('/user_content_reactions');
+  }
+
+  deleteUserContentReaction = (ID) => {
+    return this.init().delete(`/user_content_reactions/${ID}`)
+  }
 }
