@@ -180,6 +180,12 @@ align-items: center;
 text-align: justify;
 letter-spacing: 0.16px;
 
+font-family: IBM Plex Sans;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 18px;
+
 /* Gray 80 - #393939 */
 
 color: #393939;
