@@ -6,12 +6,16 @@ const ALL_OPTIONS = {
     "id": 0,
     "name": "ALL",
     "emoji": "All",
-    "count": ""
+    "count": ''
 }
 export const SummaryHeader = ({reactions ,changeTab}) => {
 
 
     //can be moved to a util and can be used commonly between summaryheader and counter components
+    let totalCount = reactions.reduce((pv,cv)=> {
+        return ( Number(cv.count) + pv);
+    }, 0)
+    ALL_OPTIONS['count'] = totalCount;
     let headerReactions = [ALL_OPTIONS].concat(reactions);
     let reactionsList = headerReactions.map(e => {
         if (e.count || e.name ==='ALL') {

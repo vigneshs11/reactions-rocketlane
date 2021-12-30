@@ -24,12 +24,12 @@ class Summary extends React.Component {
 
 
     render() {
-        console.log('render')
+        // move to seperate component 
         let userList = this.props.users.filter(this.filterByView.bind(this)).map(user => {
             return (
             <div className='summary-list'>
             <div className='avatar'>    
-            <img src={user.avatar} width="150" height="80"></img>
+            <img src={user.avatar} width="18" height="18"></img>
             </div>
             <div className='user-name'>
             {user.first_name} {user.last_name}

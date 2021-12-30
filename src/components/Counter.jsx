@@ -17,7 +17,7 @@ export const Counter = ({reactions, handleRemove, hid}) => {
     let reactionsList = reactions.map(e => {
         if (e.count) {
             let highlight = (chid===e.id) ? 'highLight emoji-container': 'emoji-container'
-            return (<div className={highlight}><span  key={e.id} id={e.reaction_id} className='emoji'>{`${e.count} . ` + e.emoji}</span></div>);
+            return (<div className={highlight}><span  key={e.id} id={e.id} className='emoji'>{`${e.count} . ` + e.emoji}</span></div>);
         }
     })
 

@@ -13,7 +13,8 @@ class Mount extends React.Component {
         super(props)
         this.state = {
             reactions: [],
-            userContentReaction: []
+            userContentReaction: [],
+            contentId: this.props.contentId
         }
         this.api = new Api();
 
@@ -23,6 +24,15 @@ class Mount extends React.Component {
 
     componentDidMount() {
         this.getReactions();
+    }
+
+    componentDidUpdate(prev) {
+        if(prev.contentId!==this.props.contentId) {
+            this.setState({
+                contentId:this.props.contentId
+            })
+            this.getReactions();
+        }
     }
 
 
@@ -37,7 +47,7 @@ class Mount extends React.Component {
                 return {...user,...elem}
             })
 
-            return userList.filter((user) => (user.content_id===this.props.contentId))
+            return userList.filter((user) => (user.content_id===this.state.contentId))
         })
         let sanitizedReactions = reactionsList.data.map(reaction => {
            let count =  this.getCountByReactionsContentUser(reaction.id, userContentReaction);
@@ -58,7 +68,7 @@ class Mount extends React.Component {
     getCountByReactionsContentUser(id, elems) { 
         let count=0; 
         for(let elem of elems.data) { 
-            if (elem.reaction_id == id && elem.content_id == this.props.contentId) count++; 
+            if (elem.reaction_id == id && elem.content_id == this.state.contentId) count++; 
         }
 
         return count;
@@ -71,7 +81,7 @@ class Mount extends React.Component {
          this.api.postReaction({
              "user_id": 2,
              "reaction_id": reaction.id,
-             "content_id": this.props.contentID
+             "content_id": this.state.contentId
          }).then(() => {
              reaction.selected = true
              reaction.count+=1
@@ -101,7 +111,7 @@ class Mount extends React.Component {
         return(
             <div className="mount">
             <Reactions  reactions={this.state.reactions} handleClick={this.handleClick.bind(this)} handleRemove={this.handleRemove.bind(this)}/>
-            <Summary reactions={this.state.reactions} users={this.state.userList} contentId={this.props.contentId} />
+            <Summary reactions={this.state.reactions} users={this.state.userList} contentId={this.state.contentId} />
             </div>
         );
     } else {

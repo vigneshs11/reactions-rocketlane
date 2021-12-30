@@ -15,7 +15,6 @@ class Reactions extends React.Component {
   }
 
   highlightId = (event) => {
-        console.log(event.target);
         this.setState({
             hid: event.target.id
         })

@@ -4,16 +4,20 @@ import Mount  from './components/Mount';
 import Summary  from './components/Summary';
 
 
-const CONTENT_ID  = 1
+// const CONTENT_ID  = 2
 
 
 function App() {
 
-  // let contents = CONTENT_ID.map(content => {
-  //   return (<div  key={content}><Mount contentId={content}/></div>)
-  // })
+  let [contentId , setContentId] = useState(1)
+
+  const toggleContent =() => {
+    if(contentId ==1) setContentId(2)
+    else setContentId(1)
+  }
   return(<div>
-  <Mount contentId={CONTENT_ID} />
+    <button onClick={toggleContent} className='toggle'>Toggle Content ID</button>
+  <Mount contentId={contentId} />
   </div>);
 }
 
