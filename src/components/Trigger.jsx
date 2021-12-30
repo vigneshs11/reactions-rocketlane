@@ -6,15 +6,15 @@ import useComponentVisible  from '../helper/useComponentVisible';
 
 
 
-export const Trigger = ({reactions, handleClick}) => {
+export const Trigger = ({reactions, handleClick, highlightId}) => {
   const { ref, isComponentVisible } = useComponentVisible(false);
 
 
 if(isComponentVisible) {
     return( 
         
-        <div ref={ref}>
-            <Tray ref={ref} showTray={isComponentVisible} reactions={reactions} handleClick={handleClick}/>
+        <div ref={ref} >
+            <Tray  highlightId={highlightId} showTray={isComponentVisible} reactions={reactions} handleClick={handleClick}/>
             <div  
             className='trigger'>
             <img src={addReactions}></img>

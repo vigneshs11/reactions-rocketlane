@@ -43,4 +43,8 @@ export default class Api {
   deleteUserContentReaction = (ID) => {
     return this.init().delete(`/user_content_reactions/${ID}`)
   }
+
+  getUser = () => {
+    return this.init().get(`/users`)
+  }
 }

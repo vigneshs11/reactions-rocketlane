@@ -1,9 +1,13 @@
 import React, {useContext} from 'react';
+import Reactions from './Reactions';
 
 
-export const Tray = ({showTray, reactions, handleClick}) => {
+export const Tray = ({showTray, reactions, handleClick, highlightId}) => {
 
-    let reactionList = reactions.filter(reaction => !reaction.selected).map(reaction =>(<div className="emoji"> {reaction.emoji}</div>));
+    let reactionList = reactions.filter(reaction => !reaction.selected).map(reaction =>(
+    <div onMouseOver={highlightId} className="emoji" id={reaction.id}> 
+    {reaction.emoji}
+    </div>));
 
     return (
     <div  

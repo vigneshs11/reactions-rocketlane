@@ -8,8 +8,10 @@ export default function useComponentVisible(initialIsVisible) {
         console.log(ref)
         if (ref.current && !ref.current.contains(event.target) && !event.target.id) {
             setIsComponentVisible(false);
-        } else if (ref.current && ref.current.contains(event.target) || event.target.id) {
+        } else if (ref.current && ref.current.contains(event.target)) {
             setIsComponentVisible(true)
+        } else if(event.target.id) {
+            // test condition
         }
     };
 

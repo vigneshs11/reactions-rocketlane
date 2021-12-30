@@ -1,17 +1,19 @@
 import Reactions from "./Reactions";
 import Api   from '../helpers/api'
 import React from 'react';
+import Summary from "./Summary";
 
 
 
-const ReactionContext = React.createContext('default');
+// const CONTENT_ID = 2
 
 class Mount extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            reactions: []
+            reactions: [],
+            userContentReaction: []
         }
         this.api = new Api();
 
@@ -28,8 +30,17 @@ class Mount extends React.Component {
        
         let reactionsList = await this.api.getReactionsList();
         let userContentReaction = await this.api.getUserContentReaction();
+        let users = await this.api.getUser().then((results) => {
+              
+           let userList =  userContentReaction.data.map((elem) => {
+                let user = results.data.find((result) => (elem.user_id === result.id));
+                return {...user,...elem}
+            })
+
+            return userList.filter((user) => (user.content_id===this.props.contentId))
+        })
         let sanitizedReactions = reactionsList.data.map(reaction => {
-           let count =  this.getCount(reaction.id, userContentReaction);
+           let count =  this.getCountByReactionsContentUser(reaction.id, userContentReaction);
 
            return {
                ...reaction,
@@ -38,14 +49,16 @@ class Mount extends React.Component {
         })
 
         this.setState({
-            reactions: [...sanitizedReactions]
+            reactions: [...sanitizedReactions],
+            userContentReaction: [...userContentReaction.data],
+            userList: [...users]
         })
     }
 
-    getCount(id, elems) { 
+    getCountByReactionsContentUser(id, elems) { 
         let count=0; 
         for(let elem of elems.data) { 
-            if (elem.reaction_id == id) count++; 
+            if (elem.reaction_id == id && elem.content_id == this.props.contentId) count++; 
         }
 
         return count;
@@ -58,7 +71,7 @@ class Mount extends React.Component {
          this.api.postReaction({
              "user_id": 2,
              "reaction_id": reaction.id,
-             "content_id": 1
+             "content_id": this.props.contentID
          }).then(() => {
              reaction.selected = true
              reaction.count+=1
@@ -86,11 +99,10 @@ class Mount extends React.Component {
 
     if(this.state.reactions.length) {
         return(
-            <ReactionContext.Provider value={this.state.reactions}>
             <div className="mount">
             <Reactions  reactions={this.state.reactions} handleClick={this.handleClick.bind(this)} handleRemove={this.handleRemove.bind(this)}/>
+            <Summary reactions={this.state.reactions} users={this.state.userList} contentId={this.props.contentId} />
             </div>
-            </ReactionContext.Provider>
         );
     } else {
         return(
