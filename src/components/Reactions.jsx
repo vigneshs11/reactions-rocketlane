@@ -5,20 +5,20 @@ import { Counter } from './Counter';
 
 class Reactions extends React.Component {
 
-  constructor(props) {
-      super(props)
+    constructor(props) {
+        super(props)
 
-      this.state = {
-          hid: 0
-      }
+        this.state = {
+            hid: 0
+        }
 
-  }
+    }
 
-  highlightId = (event) => {
+    highlightId = (event) => {
         this.setState({
             hid: event.target.id
         })
-  }
+    }
 
 
 
@@ -26,10 +26,10 @@ class Reactions extends React.Component {
         let counterReactions = this.props.reactions;
         return (
             <div className='reactions'>
-            <Counter reactions={counterReactions} handleRemove={this.props.handleRemove} hid={this.state.hid}/>
-            <Trigger highlightId={this.highlightId} reactions={this.props.reactions} handleClick={this.props.handleClick}/>
+                <Counter reactions={counterReactions} handleRemove={this.props.handleRemove} hid={this.state.hid} />
+                <Trigger highlightId={this.highlightId} reactions={this.props.reactions} handleClick={this.props.handleClick} />
             </div>
-            );
+        );
     };
 }
 

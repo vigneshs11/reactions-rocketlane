@@ -1,5 +1,4 @@
-import React, {useContext} from 'react';
-import Reactions from './Reactions';
+import React from 'react';
 
 
 export const Tray = ({showTray, reactions, handleClick, highlightId}) => {
