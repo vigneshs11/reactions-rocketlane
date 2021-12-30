@@ -10,8 +10,8 @@ export default function useComponentVisible(initialIsVisible) {
             setIsComponentVisible(false);
         } else if (ref.current && ref.current.contains(event.target)) {
             setIsComponentVisible(true)
-        } else if(event.target.id) {
-            // test condition
+        } else if (event.target.id) {
+            // test condition will need to be removed - vignesh S
         }
     };
 

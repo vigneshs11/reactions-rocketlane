@@ -2,7 +2,6 @@
 import * as axios from "axios";
 
 const BASE_URL = 'https://artful-iudex.herokuapp.com'
-const CONTENT_ID = '2'
 
 export default class Api {
   constructor() {
