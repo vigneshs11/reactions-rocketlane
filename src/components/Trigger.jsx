@@ -13,7 +13,7 @@ export const Trigger = ({reactions, handleClick, highlightId}) => {
 if(isComponentVisible) {
     return( 
         
-        <div ref={ref} >
+        <div ref={ref} className='trigger-wrapper' >
             <Tray  highlightId={highlightId} showTray={isComponentVisible} reactions={reactions} handleClick={handleClick}/>
             <div  
             className='trigger'>

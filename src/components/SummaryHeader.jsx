@@ -8,7 +8,7 @@ const ALL_OPTIONS = {
     "emoji": "All",
     "count": ''
 }
-export const SummaryHeader = ({reactions ,changeTab}) => {
+export const SummaryHeader = ({reactions ,changeTab, currentTab}) => {
 
 
     //can be moved to a util and can be used commonly between summaryheader and counter components
@@ -19,7 +19,8 @@ export const SummaryHeader = ({reactions ,changeTab}) => {
     let headerReactions = [ALL_OPTIONS].concat(reactions);
     let reactionsList = headerReactions.map(e => {
         if (e.count || e.name ==='ALL') {
-            return (<div onClick={changeTab} className='summary-header-cell' ><span  key={e.id} id={e.id}>{`${e.count} . ` + e.emoji}</span></div>);
+            let headerClass = (currentTab === e.id) ? ' hight-light-tab summary-header-cell': 'dim-light-tab summary-header-cell';
+            return (<div onClick={changeTab} className={headerClass} ><span  key={e.id} id={e.id}>{`${e.count} . ` + e.emoji}</span></div>);
         }
     })
     

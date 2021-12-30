@@ -24,13 +24,11 @@ class Summary extends React.Component {
 
 
     render() {
-        debugger
         // move to seperate component 
         let reactionMap = this.props.reactions.reduce((pv, cv) => {
              pv[cv.id]=cv.emoji
              return pv;
         }, {})
-        console.log(reactionMap)
         let userList = this.props.users.filter(this.filterByView.bind(this)).map(user => {
             return (
             <div className='summary-list'>
@@ -38,7 +36,7 @@ class Summary extends React.Component {
             <img src={user.avatar} width="18" height="18"></img>
             </div>
             <div className='user-name'>
-            <span>{reactionMap[user.reaction_id]}</span>
+            <span className='avatar'>{reactionMap[user.reaction_id]}</span>
             {user.first_name} {user.last_name}
             </div>
             </div>)
@@ -47,7 +45,8 @@ class Summary extends React.Component {
 
         return(
             <div className='summary-view'>
-            <SummaryHeader  reactions={this.props.reactions} changeTab={this.changeTab}/>
+             <div className='summary-title'>Reactions</div>   
+            <SummaryHeader  reactions={this.props.reactions} changeTab={this.changeTab} currentTab={this.state.currentView}/>
              {userList}
             </div>
         );
